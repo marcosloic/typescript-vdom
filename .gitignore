@@ -1,0 +1,9 @@
+# Build results
+dist/
+typings/**/*
+
+# Others
+~$*
+*~
+node_modules/
+npm-debug.log
