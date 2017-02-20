@@ -7,3 +7,4 @@ typings/**/*
 *~
 node_modules/
 npm-debug.log
+typescript-compiler.xml
