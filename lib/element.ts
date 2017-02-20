@@ -1,10 +1,11 @@
-export class Element {
+class Element {
 
     public create(node) {
         if (typeof node === 'string') {
             return document.createTextNode(node);
         }
         const $el = document.createElement(node.type);
+        this.setProps($el, node.props);
         node.children
             .map(child => this.create(child))
             .forEach($el.appendChild.bind($el));
@@ -45,4 +46,46 @@ export class Element {
         }
     }
 
+    public createLotsOfElements(num: number) {
+        let i = 1;
+        let arr = [];
+
+        while (i < (num + 1)) {
+            arr.push({
+                type: 'li',
+                props: {className: `item`, style: 'list-style:square'},
+                children: [`item ${i}`]
+            });
+            i++
+        }
+        return arr;
+    }
+
+    private setProps($target, props) {
+        Object.keys(props).forEach(name => {
+            this.setProp($target, name, props[name]);
+        });
+    }
+
+    private setProp($target, name, value) {
+        if (name === 'className') {
+            $target.setAttribute('class', value);
+        } else if (typeof value === 'boolean') {
+            this.setBooleanProp($target, name, value);
+        } else {
+            $target.setAttribute(name, value);
+        }
+    }
+
+    private setBooleanProp($target, name, value) {
+        if (value) {
+            $target.setAttribute(name, value);
+            $target[name] = true;
+        } else {
+            $target[name] = false;
+        }
+    }
+
 }
+
+export default new Element();
