@@ -1,6 +1,5 @@
-function h(type, props, ...children) {
-    return {type, props, children};
-}
+import {Element}  from '../lib/element';
+const El = new Element();
 
 const a = ({
         type: 'ul', props: {className: 'list'},
@@ -11,4 +10,15 @@ const a = ({
         ]
     });
 
-console.log(a);
+const b = ({
+    type: 'ul', props: {className: 'list'},
+    children: [
+        {type: 'li', props: {}, children: ['item 3']},
+        {type: 'li', props: {}, children: ['item 4']},
+
+    ]
+});
+
+const $root = document.getElementById('root');
+$root.appendChild(El.create(a));
+$root.appendChild(El.create(b));
